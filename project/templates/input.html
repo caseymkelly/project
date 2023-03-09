@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block content %}
+
+<form action = '' method="post">
+  <div>
+    <label for="location">Current Location</label><br>
+    <input type="text" id="curr_location" name="curr_location_input"></div>
+  <div>
+    <label for="radius">Radius</label><br>
+    <input type="number" id="radius" name="radius_input" min=".25" max="5"></div>
+</form>
+
+{% endblock %}
