@@ -18,8 +18,8 @@ lr_stops = {'Northgate Station': [47.701976, -122.328388, '1_990006', '1_990005'
 
 ##RETURN LAT AND LONG LIST FOR CURRENT LOCATION (INPUT)##
 def geocode_current_location():
-    current_location = input("Enter your current address")
-    intended_direction = input("NB or SB?")
+    #current_location = input("Enter your current address")
+    current_location = 'University of Washington'
     geocode_args = {'text': current_location, 'apiKey': keys.GEOAPIFY_SECRET_API_KEY}
     geocode_paramstr = urllib.parse.urlencode(geocode_args)
     geocode_baseurl = 'https://api.geoapify.com/v1/geocode/search?'
@@ -29,7 +29,6 @@ def geocode_current_location():
         geocode_curr_loc_str = response.read().decode()
     geocode_data = json.loads(geocode_curr_loc_str)
     from_waypoint = geocode_data['features'][0]['geometry']['coordinates']
-    from_waypoint.append(intended_direction)
     return from_waypoint
 
 
@@ -52,8 +51,8 @@ def get_time_dist_to_lrstops(lr_stops, radius):
         try:
             loc_data = requests.post(geomatrix_baseurl, headers=headers, data=json.dumps(geomatrix_args))
             data = loc_data.json()
-            print('Distance to ', station, ': ', round((data['sources_to_targets'][0][0]['distance']/1609), 2), 'mi')
-            print('Time to ', station, ': ', floor(data['sources_to_targets'][0][0]['time']/60), 'min')
+            #print('Distance to ', station, ': ', round((data['sources_to_targets'][0][0]['distance']/1609), 2), 'mi')
+            #print('Time to ', station, ': ', floor(data['sources_to_targets'][0][0]['time']/60), 'min')
         except requests.exceptions.HTTPError as e:
             print(e.response.text)
 
@@ -70,28 +69,40 @@ def get_time_dist_to_lrstops(lr_stops, radius):
 
 def next_train(lr_stops):
     nearby_lrstops = get_time_dist_to_lrstops(lr_stops, 1.5)
+    #intended_direction = input("NB or SB?")
+    intended_direction = "NB"
     for station in nearby_lrstops:
         # baseurl = 'http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/'
         # oba_args = {'key': keys.ONEBUSAWAY_SECRET_API_KEY, ''}
-        print(lr_stops[station][2])
-        with urllib.request.urlopen('http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/' + str(lr_stops[station][2]) + '.json?key=' + keys.ONEBUSAWAY_SECRET_API_KEY) as response:
-            oba_ardep_str = response.read().decode()
-        oba_ardep_data = json.loads(oba_ardep_str)
-        pprint.pprint(oba_ardep_data)
-        time_current = oba_ardep_data['currentTime'] / 1000.0
-        count = 0
-        while count < 3:
-            time_arrival = oba_ardep_data['data']['entry']['arrivalsAndDepartures'][count][
-                               'scheduledArrivalTime'] / 1000.0
-            time_diff = time_arrival - time_current
-            time_diff_min = floor(time_diff / 60)
-            # train_dict = {'current time': time_current/60, 'arrival times': []}
-            # train_dict['arrival times'][count].append(time_diff_min)
-            nearby_lrstops[station].append(time_diff_min)
-            count += 1
+        if intended_direction == 'NB':
+            with urllib.request.urlopen('http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/' + str(lr_stops[station][2]) + '.json?key=' + keys.ONEBUSAWAY_SECRET_API_KEY) as response:
+                oba_ardep_str = response.read().decode()
+            oba_ardep_data = json.loads(oba_ardep_str)
+            time_current = oba_ardep_data['currentTime'] / 1000.0
+            count = 0
+            while count < 3:
+                time_arrival = oba_ardep_data['data']['entry']['arrivalsAndDepartures'][count][
+                                   'scheduledArrivalTime'] / 1000.0
+                time_diff = time_arrival - time_current
+                time_diff_min = floor(time_diff / 60)
+                nearby_lrstops[station].append(time_diff_min)
+                count += 1
+        else:
+            with urllib.request.urlopen('http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/' + str(lr_stops[station][3]) + '.json?key=' + keys.ONEBUSAWAY_SECRET_API_KEY) as response:
+                oba_ardep_str = response.read().decode()
+            oba_ardep_data = json.loads(oba_ardep_str)
+            time_current = oba_ardep_data['currentTime'] / 1000.0
+            count = 0
+            while count < 3:                                                                              #only getting info for the next 3 trains
+                time_arrival = oba_ardep_data['data']['entry']['arrivalsAndDepartures'][count][
+                                   'scheduledArrivalTime'] / 1000.0
+                time_diff = time_arrival - time_current
+                time_diff_min = floor(time_diff / 60)
+                nearby_lrstops[station].append(time_diff_min)
+                count += 1
     return nearby_lrstops
 
 
-#pprint(next_train(lr_stops))
+print(next_train(lr_stops))
 
 print(geocode_current_location())
