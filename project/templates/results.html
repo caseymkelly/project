@@ -1,13 +1,14 @@
-{% extends "base.html}
+<body class="p-3 mb-2 bg-secondary text-white">
+{% extends "base.html" %}
 {% block content %}
 
-    <h2>Stations within {{radius}} mi of {{current_location}}</h2>
+    <p class="p-3 mb-2 bg-secondary text-white">{{station_count}} station(s) found within {{radius}} mi of {{current_location}}</p>
 
-    {% for station in nearby_lrstops %}
-        <h2>{{station_key}}</h2><br>
-        <h4>Walking distance: {{dist_to_station}} mi   |   Walking time: {{time_to_station}} min</h4><br>
-        <h4>Next train arrives in </h4>
-        {% for item in next_trains %}
-            <h4>{{next_trains[time]}}  |  </h4><br><br>         #how can I not have the | at the end??
+    {% for station_key, stop_info in nearby_lrstops.items() %}
+        <p><h1 class="display-4 p-3 mb-2 bg-secondary text-info">{{station_key}}</h1></p>
+        <p class=" display-10-sm p-3 mb-2 bg-secondary text-white">Walking distance: {{stop_info[0]}} mi   |   Walking time: {{stop_info[1]}} min<br>
+        Next train arrives in <br>
+    {{stop_info[2]}}   |   {{stop_info[3]}}   |   {{stop_info[4]}} min</p></body><br><br>
     {% endfor %}
 {% endblock %}
+</body>

@@ -1,0 +1,123 @@
+ .u-section-1 {
+  background-image: none;
+}
+
+.u-section-1 .u-sheet-1 {
+  min-height: 1153px;
+}
+
+.u-section-1 .u-form-1 {
+  height: 622px;
+  --thumb-color: #ec974e;
+  --thumb-hover-color: #7cd1e4;
+  --track-color: #c0c0c0;
+  --track-active-color: #4bbfd8;
+  --thumb-border-width: 9px;
+  --thumb-border-color: #ec974e;
+  --range-width: 50%;
+  width: 888px;
+  margin: 367px auto 0;
+}
+
+.u-section-1 .u-form-group-1 {
+  margin-left: auto;
+}
+
+.u-section-1 .u-label-1 {
+  font-size: 1.875rem;
+}
+
+.u-section-1 .u-input-1 {
+  height: 50px;
+}
+
+.u-section-1 .u-form-group-2 {
+  margin-left: auto;
+}
+
+.u-section-1 .u-label-2 {
+  font-size: 1.875rem;
+}
+
+.u-section-1 .u-input-2 {
+  height: 72px;
+}
+
+.u-section-1 .u-form-group-3 {
+  --progress: 15.7895%;
+  margin-left: auto;
+  margin-bottom: 60px !important;
+  margin-top: 0 !important;
+}
+
+.u-section-1 .u-label-3 {
+  font-size: 1.875rem;
+}
+
+.u-section-1 .u-form-group-4 {
+  margin-left: auto;
+}
+
+.u-section-1 .u-btn-1 {
+  margin-left: auto;
+  letter-spacing: 1px;
+  border-style: none;
+  background-image: none;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.u-section-1 .u-text-1 {
+  margin: -187px 507px 60px auto;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-form-1 {
+    height: 574px;
+    margin-top: 463px;
+  }
+
+  .u-section-1 .u-btn-1 {
+    width: 100%;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin-top: -188px;
+    margin-right: 418px;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-1 .u-form-1 {
+    margin-top: 434px;
+    margin-right: initial;
+    margin-left: initial;
+    width: auto;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin-top: -187px;
+    margin-right: 320px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-text-1 {
+    width: auto;
+    margin-top: -188px;
+    margin-right: 207px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-form-1 {
+    margin-top: 432px;
+    width: auto;
+    margin-right: initial;
+    margin-left: initial;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin-right: 102px;
+  }
+}

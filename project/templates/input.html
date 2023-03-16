@@ -1,6 +1,7 @@
+<body class="p-3 mb-2 bg-secondary text-white">
 {% extends "base.html" %}{% block content %}
 
-<form action = '' method="post">
+<form action = "/results" method="post">
   <div class="form-group">
     <label for="curr_location">Current Location</label><br>
     <input type="text" class="form-control" id="curr_location" name="curr_location_input">
@@ -11,12 +12,13 @@
       <option value="North">North</option>
       <option value="South">South</option>
     </select>
-  </div><br>
+  </div><br><div>
     <label for="radius">Radius</label>
-    <input type="number" step="0.25" id="radius" name="radius_input" min=".25" max="5"></div>
+    <input type="number" step="0.25" id="radius" name="radius_input" min=".25" max="5"></div><br>
   <div>
     <button type="submit" value="SUBMIT">Find Stations!</button>
   </div>
 </form>
 
 {% endblock %}
+</body>
